@@ -1,6 +1,6 @@
 {
   "name": "auto.js",
-  "version": "1.0.0",
+  "version": "0.0.1-alpha1",
   "main": "lib/index.js",
   "license": "MIT",
   "types": ["lib/auto.d.ts"],
