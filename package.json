@@ -1,0 +1,10 @@
+{
+  "name": "auto.js",
+  "version": "1.0.0",
+  "main": "lib/index.js",
+  "license": "MIT",
+  "types": ["lib/auto.d.ts"],
+  "devDependencies": {
+    "typescript": "^2.6.2"
+  }
+}
