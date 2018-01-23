@@ -1,1 +1,1 @@
-/// <reference path="../lib/auto.d.ts" />
+/// <reference path="../types/auto.ts" />
