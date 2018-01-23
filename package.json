@@ -3,9 +3,7 @@
   "version": "0.0.1-alpha1",
   "main": "lib/index.js",
   "license": "MIT",
-  "types": [
-    "types/auto.d.ts"
-  ],
+  "types": ".types/autojs.d.ts",
   "devDependencies": {},
   "repository": {
     "type": "git",
