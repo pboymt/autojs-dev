@@ -609,24 +609,23 @@ declare global {
         function keepScreenDim(timeout: number): void;
 
         /**
-         * 
+         * 取消设备保持唤醒状态。用于取消device.keepScreenOn(), device.keepScreenDim()等函数设置的屏幕常亮。
          */
-        function cancelKeepingAwake()
+        function cancelKeepingAwake(): void;
 
         /**
-         * 
+         * 使设备震动一段时间。
          */
-        function vibrate(millis)
+        function vibrate(millis: number): void;
 
         /**
-         * 
+         * 如果设备处于震动状态，则取消震动。
          */
-        function cancelVibration()
+        function cancelVibration(): void;
 
-        /**
-         * 
-         */
     }
+
+    
 
 }
 
