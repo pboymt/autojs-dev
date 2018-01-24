@@ -769,6 +769,57 @@ declare global {
      */
     function rawInput(title: string, prefill?: string, callback?: (value: string) => void): Promise<string>;
 
+    /**
+     * engines模块包含了一些与脚本环境、脚本运行、脚本引擎有关的函数，包括运行其他脚本，关闭脚本等。
+     */
+    namespace engines {
+
+        /**
+         * 
+         */
+        interface ScriptExecution {
+
+        }
+
+        /**
+         * 
+         */
+        interface ScriptExecutionOptions {
+            /**
+             * 延迟执行的毫秒数，默认为0。
+             */
+            delay: number;
+            /**
+             * 循环运行次数，默认为1。0为无限循环。
+             */
+            loopTimes: number;
+            /**
+             * 循环运行时两次运行之间的时间间隔，默认为0。
+             */
+            interval: number;
+            /**
+             * 指定脚本运行的目录。这些路径会用于require时寻找模块文件。
+             */
+            path: string | string[];
+        }
+
+        /**
+         * 在新的脚本环境中运行脚本script。返回一个ScriptExectuion对象。
+         * 
+         * 所谓新的脚本环境，指定是，脚本中的变量和原脚本的变量是不共享的，并且，脚本会在新的线程中运行。
+         */
+        function execScript(name: string, script: string, config?: ScriptExecutionOptions): ScriptExecution;
+
+        /**
+         * 在新的脚本环境中运行脚本文件path。返回一个ScriptExecution对象。
+         */
+        function execScriptFile(path: string, config?: ScriptExecutionOptions): ScriptExecution;
+
+        /**
+         * 在新的脚本环境中运行录制文件path。返回一个ScriptExecution对象。
+         */
+        function execAutoFile(path: string, config?: ScriptExecutionOptions): ScriptExecution;
+    }
 }
 
 export { };
