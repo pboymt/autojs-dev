@@ -844,7 +844,7 @@ declare global {
             /**
              * 返回一个字符串数组表示脚本运行时模块寻找的路径。
              */
-            getPath?: string[];
+            getpath?: string[];
         }
 
         /**
@@ -855,12 +855,12 @@ declare global {
         function execScript(name: string, script: string, config?: ScriptConfig): ScriptExecution;
 
         /**
-         * 在新的脚本环境中运行脚本文件path。返回一个ScriptExecution对象。
+         * 在新的脚本环境中运行脚本文件path:string。返回一个ScriptExecution对象。
          */
         function execScriptFile(path: string, config?: ScriptConfig): ScriptExecution;
 
         /**
-         * 在新的脚本环境中运行录制文件path。返回一个ScriptExecution对象。
+         * 在新的脚本环境中运行录制文件path:string。返回一个ScriptExecution对象。
          */
         function execAutoFile(path: string, config?: ScriptConfig): ScriptExecution;
 
@@ -986,6 +986,7 @@ declare global {
         setMaxListeners(n: number): EventEmitter;
     }
 
+
     namespace floaty {
         function window(layout: any): FloatyWindow;
         function closeAll(): void;
@@ -1003,6 +1004,148 @@ declare global {
     }
 
 
+    namespace files {
+        type byte = number;
+        function isFile(path: string): boolean;
+        function isDir(path: string): boolean;
+        function isEmptyDir(path: string): boolean;
+        function join(parent: string, ...child: string[]): string;
+        function create(path: string): boolean;
+        function createWithDirs(path: string): boolean;
+        function exists(path: string): boolean;
+        function ensureDir(path: string): void;
+        function read(path: string, encoding?: string): string;
+        function readBytes(path: string): byte[];
+        function write(path: string, text, encoding?: string): void;
+        function writeBytes(path: string, bytes: byte[]): void;
+        function append(path: string, text: string, encoding?: string): void;
+        function appendBytes(path: string, text: byte[], encoding?: string): void;
+        function copy(frompath: string, topath: string): boolean;
+        function move(frompath: string, topath: string): boolean;
+        function rename(path: string, newName): boolean;
+        function renameWithoutExtension(path: string, newName: string): boolean;
+        function getName(path: string): string;
+        function getNameWithoutExtension(path: string): string;
+        function getExtension(path: string): string;
+        function remove(path: string): boolean;
+        function removeDir(path: string): boolean;
+        function getSdcardpath(): string;
+        function cwd(): string;
+        function listDir(path: string, filter: (filename: string) => boolean): string[];
+    }
+
+    interface ReadableTextFile {
+        read(): string;
+        read(maxCount: number): string;
+        readline(): string;
+        readlines(): string[];
+        close(): void;
+    }
+
+    interface WritableTextFile {
+        write(text: string): void;
+        writeline(line: string): void;
+        writelines(lines: string[]): void;
+        flush(): void;
+        close(): void;
+    }
+
+    function open(path: string, mode?: 'r', encoding?: string, bufferSize?: number): ReadableTextFile;
+    function open(path: string, mode?: 'w' | 'a', encoding?: string, bufferSize?: number): WritableTextFile;
+
+
+    function sleep(n: number): void;
+
+    function currentPackage(): string;
+
+    function currentActivity(): string;
+
+    function setClip(test: string): void;
+
+    function getClip(): string;
+
+    function toast(message: string): void;
+
+    function toastLog(message: string): void;
+
+    function waitForActivity(activity: string, period?: number): void;
+
+    function waitForPackage(packageName: string, period?: number): void;
+
+    function exit(): void;
+
+    function random(): number;
+    function random(min: number, max: number): number;
+
+
+    namespace http {
+        interface HttpRequestOptions {
+            header: { [key: string]: string },
+            method: 'GET' | 'POST' | 'PUT' | 'DELET' | 'PATCH';
+            contentType: string;
+            body: string | string[] | files.byte[]
+        }
+        interface Request {
+
+        }
+        interface Response {
+            statusCode: number;
+            statusMessage: string;
+            headers: { [key: string]: string };
+            body: ResponseBody;
+            request: Request;
+            url: string;
+            method: 'GET' | 'POST' | 'PUT' | 'DELET' | 'PATCH';
+        }
+        interface ResponseBody {
+            bytes(): files.byte[];
+            string(): string;
+            json(): object;
+            contentType: string;
+        }
+        function get(url: string, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+        function post(url: string, data: object, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+        function postJson(url: string, data?: object, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+
+        interface RequestMultipartBody {
+            file: ReadableTextFile | [string, string] | [string, string, string];
+        }
+        function postMultipart(url: string, files: RequestMultipartBody, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+        function postMultipart(url: string, files: { [key: string]: string } & RequestMultipartBody, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+
+        function request(url: string, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+
+    }
+
+
+    interface Image {
+
+    }
+
+    namespace images {
+        function requestScreenCapture(landscape?: boolean): boolean;
+        function captureScreen(): Image;
+        function captureScreen(path: string): void;
+        function pixel(image: Image, x: number, y: number): number;
+        function save(image: Image, path: string): void;
+        function read(path: string): Image;
+        function load(url: string): Image;
+        interface FindColorOptions {
+            region?: [number, number] | [number, number, number, number];
+            threshold?: number;
+        }
+        function findColor(image: Image, color: number | string, options: FindColorOptions): Point;
+        function findColorInRegion(image: Image, color: number | string, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
+        function findColorEquals(image: Image, color: number | string, [, x, y, width, height])
+        function detectsColor(image: Image, color: number | string, x: number, y: number, threshold?: number, algorithm?: 'diff');
+        interface FindImageOptions {
+            region?: [number, number] | [number, number, number, number];
+            threshold?: number;
+            level?: number;
+        }
+        function findImage(image: Image, template: Image, options)
+        function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number);
+    }
 }
 
 export { };
