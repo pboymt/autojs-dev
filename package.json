@@ -1,17 +1,23 @@
 {
   "name": "autojs-dev",
   "version": "0.0.1-alpha1",
+  "description": "Auto.js 开发工具，包含全局类型注释，可在VSCode瞪编辑器使用。",
   "main": "lib/index.js",
   "license": "MIT",
   "types": ".types/autojs.d.ts",
+  "bin": "lib/index.js",
   "scripts": {
-    "test":"tsc test/test --skipLibCheck --lib ES2015 --target ES5"
+    "test": "tsc test/test --skipLibCheck --lib ES2015 --target ES5"
   },
   "devDependencies": {
+    "@types/node": "^9.3.0",
     "typescript": "^2.6.2"
   },
   "repository": {
     "type": "git",
     "url": "https://github.com/pboymt/autojs-dev.git"
+  },
+  "dependencies": {
+    "commander": "^2.13.0"
   }
 }
