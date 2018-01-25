@@ -1,3 +1,5 @@
+#!/usr/bin/env node
+
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 import { join, dirname } from "path";
 import * as program from "commander";
