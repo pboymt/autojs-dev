@@ -4,7 +4,12 @@
   "main": "lib/index.js",
   "license": "MIT",
   "types": ".types/autojs.d.ts",
-  "devDependencies": {},
+  "scripts": {
+    "test":"tsc test/test --skipLibCheck --lib ES2015 --target ES5"
+  },
+  "devDependencies": {
+    "typescript": "^2.6.2"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/pboymt/autojs-dev.git"

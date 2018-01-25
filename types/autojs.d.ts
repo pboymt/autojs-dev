@@ -8,6 +8,8 @@
  *     -命名空间
  *     -全局
  * 
+ * 未加入：WidgetsBasedAutomation、Shell、Thread、UI、Work with Java
+ * 
  */
 declare global {
 
@@ -1119,8 +1121,12 @@ declare global {
 
 
     interface Image {
-
+        getWidth(): number;
+        getHeight(): number;
+        saveTo(path: string): void;
+        pixel(x: number, y: number): number;
     }
+
 
     namespace images {
         function requestScreenCapture(landscape?: boolean): boolean;
@@ -1136,16 +1142,70 @@ declare global {
         }
         function findColor(image: Image, color: number | string, options: FindColorOptions): Point;
         function findColorInRegion(image: Image, color: number | string, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
-        function findColorEquals(image: Image, color: number | string, [, x, y, width, height])
-        function detectsColor(image: Image, color: number | string, x: number, y: number, threshold?: number, algorithm?: 'diff');
+        function findColorEquals(image: Image, color: number | string, x?: number, y?: number, width?: number, height?: number): Point;
+        function detectsColor(image: Image, color: number | string, x: number, y: number, threshold?: number, algorithm?: 'diff'): Point;
         interface FindImageOptions {
             region?: [number, number] | [number, number, number, number];
             threshold?: number;
             level?: number;
         }
-        function findImage(image: Image, template: Image, options)
-        function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number);
+        function findImage(image: Image, template: Image, options: FindImageOptions): Point;
+        function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
     }
+
+
+    namespace colors {
+        function toString(color: number): string;
+        function red(color: number): number;
+        function green(color: number): number;
+        function blue(color: number): number;
+        function alpha(color: number): number;
+        function rgb(red: number, green: number, blue: number): number;
+        function argb(alpha: number, red: number, green: number, blue: number): number;
+    }
+
+
+    /* 全局按键 */
+    function back(): boolean;
+    function home(): boolean;
+    function powerDialog(): boolean;
+    function notifications(): boolean;
+    function quickSettings(): boolean;
+    function recents(): boolean;
+    function splitScreen(): boolean;
+    function Home(): void;
+    function Back(): void;
+    function Power(): void;
+    function Menu(): void;
+    function VolumeUp(): void;
+    function VolumeDown(): void;
+    function Camera(): void;
+    function Up(): void;
+    function Down(): void;
+    function Left(): void;
+    function Right(): void;
+    function OK(): void;
+    // function Text(text: string): void;
+    function KeyCode(code: number | string): void;
+
+
+    var module: { exports: any };
+
+
+    interface Storage {
+        get<T>(key: string, defaultValue?: T): T;
+        put<T>(key: string, value: T): void;
+        remove(key: string): void;
+        contains(key: string): boolean;
+        clear(): void;
+    }
+
+    namespace storages {
+        function create(name: string): Storage;
+        function remove(name: string): boolean;
+    }
+
 }
+
 
 export { };
