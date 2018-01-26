@@ -1,6 +1,6 @@
 {
   "name": "autojs-dev",
-  "version": "0.0.2-alpha1",
+  "version": "0.1.0",
   "description": "Auto.js 开发工具，包含全局类型注释，可在VSCode瞪编辑器使用。",
   "main": "./lib/index.js",
   "license": "MIT",
@@ -20,6 +20,7 @@
     "url": "https://github.com/pboymt/autojs-dev.git"
   },
   "dependencies": {
+    "adbkit": "^2.11.0",
     "commander": "^2.13.0"
   }
 }
