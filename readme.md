@@ -17,4 +17,11 @@ autojs create <filename> # 在当前目录创建filename.auto.ts，使用'-j, --
 autojs cap [filename] # 在当前目录创建filename.png，可通过'-d, --dir'指令设置保存目录
 ```
 
-## 文档持续完善中
+## 开发计划
+
+- [ ] 项目构建脚手架
+- [ ] 可供使用的便捷模块
+- - [ ] 找图模块
+- - [ ] 其他（可在issue提出建议，将酌情选择开发）
+- [ ] 模块打包工具
+- [ ] 其他（可在issue提出建议）
