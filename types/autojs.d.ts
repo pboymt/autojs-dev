@@ -1031,7 +1031,7 @@ declare global {
         function getExtension(path: string): string;
         function remove(path: string): boolean;
         function removeDir(path: string): boolean;
-        function getSdcardpath(): string;
+        function getSdcardPath(): string;
         function cwd(): string;
         function listDir(path: string, filter: (filename: string) => boolean): string[];
     }
