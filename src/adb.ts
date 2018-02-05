@@ -1,8 +1,17 @@
 /// <reference path="../types/adbkit.d.ts" />
 import { createClient } from "adbkit";
-import { createWriteStream, existsSync, mkdirSync } from "fs";
+import { createWriteStream, existsSync } from "fs";
 import { join, dirname } from "path";
-// const adbkit = require('adbkit');
+import * as program from "commander";
+import { mkdirsSync } from "./util";
+program
+    .option('-d, --dir <dirname>', '保存目录', process.cwd())
+    .action((filename, options) => {
+        console.log('请确认好已安装adb并且在Path中设置可全局调用！');
+        console.log('请确认您的计算机已被设备允许USB调试！');
+        ScreenCap(filename, options.dir);
+    })
+    .parse(process.argv);
 
 export async function ScreenCap(filename = `${Date.now()}.png`, path = process.cwd()) {
     const client = createClient();
@@ -26,13 +35,3 @@ export async function ScreenCap(filename = `${Date.now()}.png`, path = process.c
     }
 };
 
-export function mkdirsSync(dir: string) {
-    if (existsSync(dir)) {
-        return true;
-    } else {
-        if (mkdirsSync(dirname(dir))) {
-            mkdirSync(dir);
-            return true;
-        }
-    }
-}
