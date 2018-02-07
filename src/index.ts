@@ -1,5 +1,3 @@
-#!/usr/bin/env node
-
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 import { join, dirname } from "path";
 import * as program from "commander";
@@ -10,8 +8,9 @@ console.log(`${new Array(process.stdout.columns).fill('-').join('')}
 ${new Array(process.stdout.columns).fill('-').join('')}`);
 
 program
-    .command('create <filename>', '根据模板创建脚本文件')
     .command('cap [filename]', '对adb列表的第一个设备进行截图')
     .command('new [name]', '新建Auto.js项目')
+    .command('create <filename>', '根据模板创建脚本文件')
+    .command('build', '根据配置文件编译脚本')
 
     .parse(process.argv);

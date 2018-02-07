@@ -1,0 +1,55 @@
+{
+    "typescript": {
+        "children": [{
+            "type": "file",
+            "filename": "tsconfig.json",
+            "sourceCode": {
+                "compilerOptions": {
+                    "target": "ES5",
+                    "module": "commonjs",
+                    "lib": [
+                        "es2015"
+                    ],
+                    "removeComments": true,
+                    "skipLibCheck": true,
+                    "sourceMap": false
+                },
+                "include": [
+                    "src/*.auto.ts"
+                ]
+            },
+            "args": {}
+        }, {
+            "type": "file",
+            "filename": ".autojs-dev.json",
+            "source": "autojs-dev.default.json",
+            "args": {}
+        }, {
+            "type": "dir",
+            "filename": "src"
+        }, {
+            "type": "dir",
+            "filename": "bin"
+        }, {
+            "type": "dir",
+            "filename": "screen"
+        }]
+    },
+    "javascript": {
+        "children": [{
+            "type": "file",
+            "filename": ".autojs-dev.json",
+            "source": "autojs-dev.default.json",
+            "args": {}
+        }, {
+            "type": "dir",
+            "filename": "src"
+        }, {
+            "type": "dir",
+            "filename": "bin"
+        }, {
+            "type": "dir",
+            "filename": "screen"
+        }]
+    }
+}

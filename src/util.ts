@@ -1,4 +1,4 @@
-import { existsSync, mkdirSync } from "fs";
+import { existsSync, mkdirSync, readFileSync } from "fs";
 import { dirname } from "path";
 
 export function mkdirsSync(dir: string) {
@@ -10,4 +10,8 @@ export function mkdirsSync(dir: string) {
             return true;
         }
     }
+}
+
+export function getWorkspaceConfig() {
+    return (existsSync('./autojs.json') && JSON.parse(readFileSync('./autojs.json', 'utf-8'))) || null;
 }

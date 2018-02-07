@@ -1,0 +1,68 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "title": "Auto.js CLI Config Schema",
+    "type": "object",
+    "properties": {
+        "$schema": {
+            "type": "string"
+        },
+        "project": {
+            "description": "项目信息配置",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "description": "项目名称",
+                    "type": "string"
+                }
+            },
+            "additionalProperties": false
+        },
+        "generate": {
+            "description": "生成脚本文件设置",
+            "type": "object",
+            "properties": {
+                "language": {
+                    "description": "生成文件格式",
+                    "type": "string",
+                    "default": "typescript",
+                    "enum": [
+                        "typescript",
+                        "javascript"
+                    ]
+                },
+                "dir": {
+                    "description": "目标目录",
+                    "type": "string",
+                    "default": "./scripts"
+                }
+            }
+        },
+        "screencap": {
+            "description": "截屏设置",
+            "type": "object",
+            "properties": {
+                "dir": {
+                    "description": "保存目录",
+                    "type": "string",
+                    "default": "./screencap"
+                }
+            }
+        },
+        "compile": {
+            "description": "编译设置",
+            "type": "object",
+            "properties": {
+                "src": {
+                    "description": "源文件位置",
+                    "type": "string",
+                    "default": "./scripts"
+                },
+                "output": {
+                    "description": "输出目录",
+                    "type": "string",
+                    "default": "./output"
+                }
+            }
+        }
+    }
+}

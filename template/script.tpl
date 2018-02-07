@@ -1,1 +1,5 @@
-/// <reference path="./node_modules/autojs-dev/types/autojs.d.ts" />
+/// <reference path="{{#dev-types}}" />
+
+(function () {
+    {{#modules}}
+});
