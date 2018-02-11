@@ -1255,10 +1255,10 @@ declare global {
         scrollable(b: boolean): UiSelector;
         editable(b: boolean): UiSelector;
         multiLine(b: boolean): UiSelector;
-        findOne(): UiSelector;
-        findOne(timeout: number): UiSelector;
-        findOnce(): UiSelector;
-        findOnce(i: number): UiSelector;
+        findOne(): UiObject;
+        findOne(timeout: number): UiObject;
+        findOnce(): UiObject;
+        findOnce(i: number): UiObject;
         find(): UiCollection;
         untilFind(): UiCollection;
         exists(): boolean;
