@@ -1189,7 +1189,7 @@ declare global {
     function KeyCode(code: number | string): void;
 
 
-    var module: { exports: any };
+    // var module: { exports: any };
 
 
     interface Storage {
@@ -1203,6 +1203,122 @@ declare global {
     namespace storages {
         function create(name: string): Storage;
         function remove(name: string): boolean;
+    }
+
+    function auto(mode?: 'fast' | 'normal'): void;
+    function selector(): UiSelector;
+    function click(text: string, index?: number): boolean;
+    function click(left: number, top: number, bottom: number, right: number): boolean;
+    function longClick(text: string, index?: number): boolean;
+    function scrollUp(index?: number): boolean;
+    function scrollDown(index?: number): boolean;
+    function setText(text: string): boolean;
+    function setText(index: number, text: string): boolean;
+    function input(text: string): boolean;
+    function input(index: number, text: string): boolean;
+
+    interface UiSelector {
+        text(str: string): UiSelector;
+        textContains(str: string): UiSelector;
+        textStartsWith(prefix: string): UiSelector;
+        textEndsWith(suffix: string): UiSelector;
+        textMatches(reg: string | RegExp): UiSelector;
+        desc(str: string): UiSelector;
+        descContains(str: string): UiSelector;
+        descStartsWith(prefix: string): UiSelector;
+        descEndsWith(suffix: string): UiSelector;
+        descMatches(reg: string | RegExp): UiSelector;
+        id(resId: string): UiSelector;
+        idContains(str: string): UiSelector;
+        idStartsWith(prefix: string): UiSelector;
+        idEndsWith(suffix: string): UiSelector;
+        idMatches(reg: string | RegExp): UiSelector;
+        className(str: string): UiSelector;
+        classNameContains(str: string): UiSelector;
+        classNameStartsWith(prefix: string): UiSelector;
+        classNameEndsWith(suffix: string): UiSelector;
+        classNameMatches(reg: string | RegExp): UiSelector;
+        packageName(str: string): UiSelector;
+        packageNameContains(str: string): UiSelector;
+        packageNameStartsWith(prefix: string): UiSelector;
+        packageNameEndsWith(suffix: string): UiSelector;
+        packageNameMatches(reg: string | RegExp): UiSelector;
+        bounds(left: number, top: number, right: number, buttom: number): UiSelector;
+        boundsInside(left: number, top: number, right: number, buttom: number): UiSelector;
+        boundsContains(left: number, top: number, right: number, buttom: number): UiSelector;
+        drawingOrder(order): UiSelector;
+        clickable(b: boolean): UiSelector;
+        longClickable(b: boolean): UiSelector;
+        checkable(b: boolean): UiSelector;
+        selected(b: boolean): UiSelector;
+        enabled(b: boolean): UiSelector;
+        scrollable(b: boolean): UiSelector;
+        editable(b: boolean): UiSelector;
+        multiLine(b: boolean): UiSelector;
+        findOne(): UiSelector;
+        findOne(timeout: number): UiSelector;
+        findOnce(): UiSelector;
+        findOnce(i: number): UiSelector;
+        find(): UiCollection;
+        untilFind(): UiCollection;
+        exists(): boolean;
+        waitFor(): void;
+        filter(filter: (obj: UiObject) => boolean)
+    }
+
+    interface UiObject {
+        click(): boolean;
+        longClick(): boolean;
+        setText(text: string): boolean;
+        copy(): boolean;
+        cut(): boolean;
+        paste(): boolean;
+        setSelection(start, end): boolean;
+        scrollForward(): boolean;
+        scrollBackward(): boolean;
+        select(): boolean;
+        collapse(): boolean;
+        expand(): boolean;
+        show(): boolean;
+        scrollUp(): boolean;
+        scrollDown(): boolean;
+        scrollLeft(): boolean;
+        scrollRight(): boolean;
+        children(): UiCollection;
+        childCount(): number;
+        child(i: number): UiObject;
+        parent(): UiObject;
+        bounds(): Rect;
+        boundsInParent(): Rect;
+        drawingOrder(): number;
+        id(): string;
+        text(): string;
+        findByText(str: string): UiCollection;
+        findOne(selector): UiObject;
+        find(selector): UiCollection;
+    }
+
+    interface UiCollection {
+        size(): number;
+        get(i: number): UiObject;
+        each(func: (obj: UiObject) => void): void;
+        empty(): boolean;
+        nonEmpty(): boolean;
+        find(selector): UiCollection;
+        findOne(selector): UiObject;
+    }
+
+    interface Rect {
+        left: number;
+        right: number;
+        top: number;
+        bottom: number;
+        centerX(): number;
+        centerY(): number;
+        width(): number;
+        height(): number;
+        contains(r): Rect;
+        intersect(r): Rect;
     }
 
 }
