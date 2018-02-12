@@ -638,7 +638,7 @@ declare global {
     /**
      * dialogs 模块提供了简单的对话框支持，可以通过对话框和用户进行交互。
      */
-    namespace dialog {
+    namespace dialogs {
 
         /**
          * 显示一个只包含“确定”按钮的提示对话框。直至用户点击确定脚本才继续运行。
