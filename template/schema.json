@@ -48,6 +48,22 @@
                 }
             }
         },
+        "images": {
+            "description": "识图素材设置",
+            "type": "object",
+            "properties": {
+                "dir": {
+                    "description": "保存目录",
+                    "type": "string",
+                    "default": "./screencap"
+                },
+                "port": {
+                    "description": "图片加载服务监听端口",
+                    "type": "number",
+                    "default": 3400
+                }
+            }
+        },
         "compile": {
             "description": "编译设置",
             "type": "object",

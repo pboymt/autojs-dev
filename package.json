@@ -1,6 +1,6 @@
 {
   "name": "autojs-dev",
-  "version": "0.2.3",
+  "version": "0.3.0",
   "description": "Auto.js 开发工具，包含全局类型注释，可在VSCode瞪编辑器使用。",
   "main": "./lib/index.js",
   "license": "MIT",
@@ -10,13 +10,16 @@
     "autojs-new": "./bin/autojs-new",
     "autojs-cap": "./bin/autojs-cap",
     "autojs-create": "./bin/autojs-create",
-    "autojs-build": "./bin/autojs-build"
+    "autojs-build": "./bin/autojs-build",
+    "autojs-img": "./bin/autojs-img"
   },
   "scripts": {
     "test": "tsc test/test --skipLibCheck --lib ES2015 --target ES5",
     "start": "node lib/index.js"
   },
   "devDependencies": {
+    "@types/ejs": "^2.5.0",
+    "@types/express": "^4.11.1",
     "@types/node": "^9.3.0",
     "@types/webpack": "^3.8.4",
     "typescript": "^2.6.2"
@@ -28,6 +31,8 @@
   "dependencies": {
     "adbkit": "^2.11.0",
     "commander": "^2.13.0",
+    "ejs": "^2.5.7",
+    "express": "^4.16.2",
     "ts-loader": "^3.4.0",
     "webpack": "^3.8.1"
   }
