@@ -1,5 +1,13 @@
-/// <reference path="{{#dev-types}}" />
+/// <reference path="../node_modules/autojs-dev/types/autojs.d.ts" />
 
-(function () {
-    {{#modules}}
-});
+class {{#name}} {
+    constructor(){
+        
+    }
+
+    static main(){
+
+    }
+}
+
+{{#name}}.main();
