@@ -12,5 +12,5 @@ program
     .command('new [name]', '新建Auto.js项目')
     .command('create <filename>', '根据模板创建脚本文件')
     .command('build', '根据配置文件编译脚本')
-
+    .command('img', '启动找图素材加载服务')
     .parse(process.argv);
