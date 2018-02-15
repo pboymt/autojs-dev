@@ -15,3 +15,9 @@ export function mkdirsSync(dir: string) {
 export function getWorkspaceConfig() {
     return (existsSync('./autojs.json') && JSON.parse(readFileSync('./autojs.json', 'utf-8'))) || null;
 }
+
+export function firstUpperCase(str: string) {
+    return str.split('').map((val, index) => {
+        return index === 0 ? val.toUpperCase() : val;
+    }).join('');
+}
