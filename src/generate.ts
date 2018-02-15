@@ -23,12 +23,13 @@ program
     .parse(process.argv);
 
 const config = getWorkspaceConfig();
-const fname = `${program.args[0]}.${program.opts().javascript ? 'auto.js' : 'auto.ts'}`;
+const fname = `${program.args[0] || `script${Date.now()}`}.${program.opts().javascript ? 'auto.js' : 'auto.ts'}`;
+const saveDir = (config && (config.generate && config.generate.dir)) || program.opts().dir;
 const fullpath = resolve(program.opts().dir, fname);
 console.log(`生成位置：${fullpath}`);
 if (existsSync(fullpath)) {
     throw "文件已存在";
 } else {
     mkdirsSync(dirname(fullpath));
-    writeFileSync(fullpath, readFileSync(join(__dirname, '../template/script.tpl')));
+    writeFileSync(fullpath, readFileSync(join(__dirname, '../template/script.tpl'), 'utf-8').replace(RegExp('{{#name}}', 'g'), program.args[0] || `script${Date.now()}`));
 }
