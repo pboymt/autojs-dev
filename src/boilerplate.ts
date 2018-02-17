@@ -24,10 +24,7 @@ const defaultTSConfig = {
         "removeComments": false,
         "skipLibCheck": true,
         "sourceMap": false
-    },
-    "include": [
-        "src/*.auto.ts"
-    ]
+    }
 };
 
 const autojsConfig = {
