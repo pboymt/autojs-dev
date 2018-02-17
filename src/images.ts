@@ -17,7 +17,8 @@ const host = (config && (config.images && config.images.host)) || program.opts()
 
 const imgDir = resolve(process.cwd(), optDir);
 
-// console.log(imgDir);
+console.log('监听地址');
+console.log(imgDir);
 const app = Express();
 
 app.get('/version', (req, res) => {
@@ -25,14 +26,15 @@ app.get('/version', (req, res) => {
 });
 
 app.get('/img/:file', (req, res) => {
-    res.sendFile(join(imgDir, req.params['file']));
+    console.log(req.params['file']);
+    res.sendFile(join(imgDir, `${req.params['file']}`));
 });
 
 app.listen(port || 3400, host || '0.0.0.0', () => {
     console.log(`Listening on ${host || '0.0.0.0'}:${port || 3400}`);
     const network = networkInterfaces();
+    console.log('可能监听的地址：')
     Object.keys(network).forEach(key => {
-        console.log('可能监听的地址：')
         network[key].forEach(val => {
             (val.family === 'IPv4') && console.log(val.address);
         });
