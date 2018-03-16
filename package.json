@@ -1,10 +1,10 @@
 {
   "name": "autojs-dev",
-  "version": "0.3.1",
+  "version": "0.4.0",
   "description": "Auto.js 开发工具，包含全局类型注释，可在VSCode瞪编辑器使用。",
   "main": "./lib/index.js",
   "license": "MIT",
-  "types": ".types/autojs.d.ts",
+  "types": "./types/auto.d.ts",
   "bin": {
     "autojs": "./bin/autojs",
     "autojs-new": "./bin/autojs-new",

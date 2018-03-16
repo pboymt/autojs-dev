@@ -50,6 +50,6 @@
     "src/*.ts"
   ],
   "exclude": [
-    "types/*ts"
+    "types/*.ts"
   ]
 }

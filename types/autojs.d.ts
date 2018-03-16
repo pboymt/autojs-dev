@@ -116,6 +116,11 @@ declare global {
         function sendEmail(options: SendEmailOptions): void;
 
         /**
+         * 启动Auto.js的特定界面。该函数在Auto.js内运行则会打开Auto.js内的界面，在打包应用中运行则会打开打包应用的相应界面。
+         */
+        function startActivity(name: 'console' | 'settings'): void;
+
+        /**
          * Intent(意图) 是一个消息传递对象，您可以使用它从其他应用组件请求操作。尽管 Intent 可以通过多种方式促进组件之间的通信.
          */
         interface Intent { }
@@ -179,6 +184,11 @@ declare global {
      */
     function openAppSetting(packageName: string): boolean;
 
+
+    // interface Console {
+    //     show(): void;
+    //     verbose(): void;
+    // }
 
     /**
      * 控制台模块提供了一个和Web浏览器中相似的用于调试的控制台。用于输出一些调试信息、中间结果等。 console模块中的一些函数也可以直接作为全局函数使用，例如log, print等。
@@ -357,6 +367,8 @@ declare global {
     }
 
     /**
+     * 需要Root权限
+     * 
      * 实验API，请勿过度依赖
      * 
      * 点击位置(x, y), 您可以通过"开发者选项"开启指针位置来确定点击坐标。
@@ -364,11 +376,13 @@ declare global {
     function Tap(x: number, y: number): void;
 
     /**
+     * 需要Root权限
+     * 
      * 实验API，请勿过度依赖
      * 
      * 滑动。从(x1, y1)位置滑动到(x2, y2)位置。
      */
-    function swipe(x1: number, x2: number, y1: number, y2: number, duration?: number): void;
+    function Swipe(x1: number, x2: number, y1: number, y2: number, duration?: number): void;
 
     /**
      * device模块提供了与设备有关的信息与操作，例如获取设备宽高，内存使用率，IMEI，调整设备亮度、音量等。
@@ -899,6 +913,10 @@ declare global {
 
         type Keys = 'volume_up' | 'volume_down' | 'home' | 'back' | 'menu';
 
+        function setKeyInterceptionEnabled(key: Keys, enabled: boolean);
+
+        function setKeyInterceptionEnabled(enabled: boolean);
+
         function onKeyDown(keyName: Keys, listener: (e: KeyEvent) => void): void;
 
         function onceKeyUp(keyName: Keys, listener: (e: KeyEvent) => void): void;
@@ -1033,6 +1051,7 @@ declare global {
         function removeDir(path: string): boolean;
         function getSdcardPath(): string;
         function cwd(): string;
+        function path(relativePath: string): string;
         function listDir(path: string, filter: (filename: string) => boolean): string[];
     }
 
@@ -1055,6 +1074,35 @@ declare global {
     function open(path: string, mode?: 'r', encoding?: string, bufferSize?: number): ReadableTextFile;
     function open(path: string, mode?: 'w' | 'a', encoding?: string, bufferSize?: number): WritableTextFile;
 
+    namespace media {
+        function scanFile(path: string): void;
+        function playMusic(path: string, volume?: number, looping?: boolean);
+        function musicSeekTo(msec: number): void;
+        function pauseMusic(): void;
+        function resumeMusic(): void;
+        function stopMusic(): void;
+        function isMusicPlaying(): boolean;
+        function getMusicDuration(): number;
+        function getMusicCurrentPosition(): number;
+    }
+
+    namespace sensors {
+        interface SensorEventEmitter {
+            on(eventName: 'change', callback: (...args: number[]) => void): void;
+            on(eventName: 'accuracy_change', callback: (accuracy: number) => void): void;
+        }
+        function on(eventName: 'unsupported_sensor', callback: (sensorName: string) => void): void;
+        function register(sensorName: string, delay?: delay): SensorEventEmitter;
+        function unregister(emitter: SensorEventEmitter);
+        function unregisterAll(): void;
+        var ignoresUnsupportedSensor: boolean;
+        enum delay {
+            normal,
+            ui,
+            game,
+            fastest
+        }
+    }
 
     function sleep(n: number): void;
 
@@ -1140,6 +1188,7 @@ declare global {
             region?: [number, number] | [number, number, number, number];
             threshold?: number;
         }
+        function clip(image: Image, x: number, y: number, w: number, h: number): Image;
         function findColor(image: Image, color: number | string, options: FindColorOptions): Point;
         function findColorInRegion(image: Image, color: number | string, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
         function findColorEquals(image: Image, color: number | string, x?: number, y?: number, width?: number, height?: number): Point;
@@ -1151,17 +1200,21 @@ declare global {
         }
         function findImage(image: Image, template: Image, options: FindImageOptions): Point;
         function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
+        function findMultiColors(image: Image, firstColor: number | string, colors: [number, number, number | string][], options?: FindColorOptions): Point;
     }
 
 
     namespace colors {
         function toString(color: number): string;
-        function red(color: number): number;
-        function green(color: number): number;
-        function blue(color: number): number;
-        function alpha(color: number): number;
+        function red(color: number | string): number;
+        function green(color: number | string): number;
+        function blue(color: number | string): number;
+        function alpha(color: number | string): number;
         function rgb(red: number, green: number, blue: number): number;
         function argb(alpha: number, red: number, green: number, blue: number): number;
+        function parseColor(colorStr: string): number;
+        function isSimilar(color1: number | string, color2: number | string, threshold: number, algorithm: 'diff' | 'rgb' | 'rgb+' | 'hs'): boolean;
+        function equals(color1: number | string, color2: number | string): boolean;
     }
 
 
@@ -1185,7 +1238,7 @@ declare global {
     function Left(): void;
     function Right(): void;
     function OK(): void;
-    // function Text(text: string): void;
+    function Text(text: string): void;
     function KeyCode(code: number | string): void;
 
 
@@ -1206,6 +1259,10 @@ declare global {
     }
 
     function auto(mode?: 'fast' | 'normal'): void;
+    namespace auto {
+        function waitFor(): void;
+        function setMode(mode: 'fast' | 'normal'): void;
+    }
     function selector(): UiSelector;
     function click(text: string, index?: number): boolean;
     function click(left: number, top: number, bottom: number, right: number): boolean;
