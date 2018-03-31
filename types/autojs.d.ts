@@ -11,7 +11,7 @@
  * 未加入：WidgetsBasedAutomation、Shell、Thread、UI、Work with Java
  * 
  */
-declare global {
+declare module 'global' {
 
     /**
      * 表示一个点（坐标）。
