@@ -1,9 +1,10 @@
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 import { join, dirname } from "path";
 import * as program from "commander";
+const packageInfo = require('../package.json');
 
 console.log(`${new Array(process.stdout.columns).fill('-').join('')}
-欢迎使用Auto.js DevTools
+欢迎使用Auto.js DevTools ${packageInfo.version}
 您可以通过 https://github.com/pboymt/autojs-dev/issues 反馈您的建议与遇到的问题
 ${new Array(process.stdout.columns).fill('-').join('')}`);
 
