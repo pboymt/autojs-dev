@@ -63,6 +63,9 @@ function checkUIScript(entries: { [name: string]: string }) {
 const entryList = getEntry();
 
 const complier = webpack({
+    resolveLoader: {
+        modules: [join(__dirname, '../node_modules')]
+    },
     entry: entryList,
     output: {
         path: outputDir,
@@ -90,7 +93,7 @@ const complier = webpack({
                 }
             },
             {
-                test: /\.png$/,
+                test: /\.(png|jpg)$/,
                 use: [
                     {
                         loader: 'url-loader'
