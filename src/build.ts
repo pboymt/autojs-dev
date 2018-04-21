@@ -9,6 +9,7 @@ program
     .option('-w, --watch', '监控模式', false)
     .option('-d, --dir', '源文件目录', process.cwd())
     .option('-o, --output', '输出目录', process.cwd())
+    .option('-p, --prod', '产品模式（删除日志输出）', false)
     .parse(process.argv);
 
 const config = getWorkspaceConfig();
@@ -21,6 +22,7 @@ if (config) {
 
 const outputDir = (config && (config.compile && config.compile.output)) ? join(process.cwd(), config.compile.output) : program.opts().output;
 const srcDir = (config && (config.compile && config.compile.src)) ? join(process.cwd(), config.compile.src) : program.opts().src;
+const prodEnv = (config && (config.compile && config.compile.prod)) ? join(process.cwd(), config.compile.prod) : program.opts().prod;
 
 function getEntry(): { [name: string]: string } {
     const srcPath = srcDir;
@@ -62,6 +64,22 @@ function checkUIScript(entries: { [name: string]: string }) {
 
 const entryList = getEntry();
 
+const plugins: any[] = [
+    // new webpack.optimize.UglifyJsPlugin({
+    //     comments:false
+    // })
+    new AutoJSUI(checkUIScript(entryList))
+];
+if (prodEnv) {
+    plugins.push(
+        new webpack.optimize.UglifyJsPlugin({
+            compress: {
+                drop_console: true
+            }
+        })
+    )
+}
+
 const complier = webpack({
     resolveLoader: {
         modules: [join(__dirname, '../node_modules')]
@@ -102,12 +120,7 @@ const complier = webpack({
             }
         ]
     },
-    plugins: [
-        // new webpack.optimize.UglifyJsPlugin({
-        //     comments:false
-        // })
-        new AutoJSUI(checkUIScript(entryList))
-    ]
+    plugins: plugins
 });
 if (program.opts().watch) {
     complier.watch({}, (err, stat) => {
