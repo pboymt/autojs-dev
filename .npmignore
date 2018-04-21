@@ -2,3 +2,7 @@ src
 test
 scripts
 node_modules
+
+*.log
+tsconfig.json
+.vscode-upload.json
