@@ -1,8 +1,9 @@
 import * as webpack from "webpack";
-import { readdirSync } from "fs";
+import { readdirSync, readFileSync } from "fs";
 import { join, resolve } from "path";
 import * as program from "commander";
 import { getWorkspaceConfig } from "./util";
+import { AutoJSUI } from "./plugins/autojs-ui";
 
 program
     .option('-w, --watch', '监控模式', false)
@@ -24,7 +25,7 @@ const srcDir = (config && (config.compile && config.compile.src)) ? join(process
 function getEntry(): { [name: string]: string } {
     const srcPath = srcDir;
     const srcFiles = readdirSync(srcPath);
-    const autoTsReg = /^([A-z_-]+)\.auto\.ts/;
+    const autoTsReg = /^([A-z_-]+)\.auto\.ts$/;
     const f = srcFiles.filter(item => {
         return autoTsReg.test(item);
     });
@@ -46,10 +47,23 @@ function getEntry(): { [name: string]: string } {
     return entries;
 }
 
+function checkUIScript(entries: { [name: string]: string }) {
+    const arr = Object.entries(entries).map(val => {
+        const p = val[1];
+        const str = readFileSync(p, 'utf-8');
+        const isUI = /"ui";/.test(str);
+        if (isUI) return val[0];
+        return null;
+    });
+    return <string[]>arr.filter(val => { return (typeof val === 'string') });
+}
+
 // console.log(getEntry());
 
+const entryList = getEntry();
+
 const complier = webpack({
-    entry: getEntry(),
+    entry: entryList,
     output: {
         path: outputDir,
         filename: '[name].auto.js'
@@ -59,13 +73,37 @@ const complier = webpack({
     },
     module: {
         rules: [
-            { test: /\.ts$/, loader: 'ts-loader' }
+            {
+                test: /\.ts$/,
+                use: {
+                    loader: 'ts-loader',
+                    options: {
+                        // configFile: join(__dirname, '../template/tsconfig.json')
+                        compilerOptions: {
+                            target: 'ES5',
+                            module: 'commonjs',
+                            lib: ['es6', 'es2017.object'],
+                            removeComments: true,
+                            skipLibCheck: true
+                        }
+                    }
+                }
+            },
+            {
+                test: /\.png$/,
+                use: [
+                    {
+                        loader: 'url-loader'
+                    }
+                ]
+            }
         ]
     },
     plugins: [
         // new webpack.optimize.UglifyJsPlugin({
         //     comments:false
         // })
+        new AutoJSUI(checkUIScript(entryList))
     ]
 });
 if (program.opts().watch) {
