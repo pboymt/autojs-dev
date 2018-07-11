@@ -12,7 +12,7 @@ npm i -g autojs-dev
 
 或者安装到工程目录
 ```
-
+npm i -S autojs-dev
 ```
 
 支持的指令：
