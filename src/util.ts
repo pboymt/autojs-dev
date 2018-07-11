@@ -17,7 +17,5 @@ export function getWorkspaceConfig() {
 }
 
 export function firstUpperCase(str: string) {
-    return str.split('').map((val, index) => {
-        return index === 0 ? val.toUpperCase() : val;
-    }).join('');
+    return str[0].toUpCase()+str.slice(1)
 }
