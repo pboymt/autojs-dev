@@ -21,7 +21,7 @@ declare namespace images {
         threshold?: number;
     }
     function clip(image: Image, x: number, y: number, w: number, h: number): Image;
-    function findColor(image: Image, color: number | string, options: FindColorOptions): Point;
+    function findColor(image: Image, color: number | string, options?: FindColorOptions): Point;
     function findColorInRegion(image: Image, color: number | string, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
     function findColorEquals(image: Image, color: number | string, x?: number, y?: number, width?: number, height?: number): Point;
     function detectsColor(image: Image, color: number | string, x: number, y: number, threshold?: number, algorithm?: 'diff'): Point;
@@ -30,7 +30,7 @@ declare namespace images {
         threshold?: number;
         level?: number;
     }
-    function findImage(image: Image, template: Image, options: FindImageOptions): Point;
+    function findImage(image: Image, template: Image, options?: FindImageOptions): Point;
     function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
     function findMultiColors(image: Image, firstColor: number | string, colors: [number, number, number | string][], options?: FindColorOptions): Point;
 
