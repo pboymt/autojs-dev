@@ -1198,7 +1198,7 @@ declare module 'global' {
             threshold?: number;
             level?: number;
         }
-        function findImage(image: Image, template: Image, options: FindImageOptions): Point;
+        function findImage(image: Image, template: Image, options?: FindImageOptions): Point;
         function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
         function findMultiColors(image: Image, firstColor: number | string, colors: [number, number, number | string][], options?: FindColorOptions): Point;
     }
