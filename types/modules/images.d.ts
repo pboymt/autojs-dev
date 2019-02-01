@@ -34,6 +34,6 @@ declare namespace images {
     function findImageInRegion(image: Image, template: Image, x: number, y: number, width?: number, height?: number, threshold?: number): Point;
     function findMultiColors(image: Image, firstColor: number | string, colors: [number, number, number | string][], options?: FindColorOptions): Point;
 
-    function fromBase64(base64: string): Image;
+    function fromBase64(base64: string): Image | null;
     function toBase64(img: Image): string;
 }
