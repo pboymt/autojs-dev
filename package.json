@@ -1,6 +1,6 @@
 {
   "name": "autojs-dev",
-  "version": "0.7.0",
+  "version": "0.7.1",
   "description": "Auto.js 开发工具，包含全局类型注释，可在VSCode等编辑器使用。",
   "main": "./lib/index.js",
   "license": "MIT",
