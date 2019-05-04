@@ -103,7 +103,7 @@ const complier = webpack({
                         compilerOptions: {
                             target: 'ES5',
                             module: 'commonjs',
-                            lib: ['es6', 'es2017.object'],
+                            lib: ['ES2015', 'ES2017', 'ES2016', 'ES2018'],
                             removeComments: true,
                             skipLibCheck: true
                         }
