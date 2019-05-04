@@ -1,3 +1,5 @@
+/// <reference path="../auto.d.ts" />
+
 declare namespace http {
     interface HttpRequestOptions {
         header: { [key: string]: string },
@@ -23,9 +25,9 @@ declare namespace http {
         json(): object;
         contentType: string;
     }
-    function get(url: string, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
-    function post(url: string, data: object, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
-    function postJson(url: string, data?: object, options?: HttpRequestOptions, callback?: (resp: Response) => void): void;
+    function get(url: string, options?: HttpRequestOptions, callback?: (resp: Response) => void): Response;
+    function post(url: string, data: object, options?: HttpRequestOptions, callback?: (resp: Response) => void): Response;
+    function postJson(url: string, data?: object, options?: HttpRequestOptions, callback?: (resp: Response) => void): Response;
 
     interface RequestMultipartBody {
         file: ReadableTextFile | [string, string] | [string, string, string];

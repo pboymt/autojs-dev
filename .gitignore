@@ -5,3 +5,4 @@ test
 .vscode-upload.json
 *.png
 *.log
+package-lock.json
