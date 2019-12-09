@@ -19,12 +19,19 @@ const defaultTSConfig = {
         "target": "ES5",
         "module": "commonjs",
         "lib": [
-            "es2015"
+            "es2015",
+            "DOM" // for use console
         ],
         "removeComments": false,
         "skipLibCheck": true,
-        "sourceMap": false
-    }
+        "sourceMap": false,
+        "esModuleInterop": true
+    },
+    "include": [
+        "scripts/**/*",  // typescripts
+        "node_modules/autojs-dev/types/auto.d.ts" // auto file types
+    ],
+    "exclude": []
 };
 
 const autojsConfig = {
@@ -93,6 +100,8 @@ function Boilerplate(name: string, isModule: boolean) {
         description: "A Auto.js Script Project.",
         devDependencies: {
             "autojs-dev": JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')).version,
+            "ts-loader": JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'))["dependencies"]["ts-loader"], // 如果需要使用node scripts，则新建项目里需要拥有ts-loader和url-loader
+            "url-loader": JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8'))["dependencies"]["url-loader"],
         },
         author: "",
         license: "GPL-3.0"

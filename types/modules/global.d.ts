@@ -26,3 +26,6 @@ declare function exit(): void;
 declare function random(): number;
 declare function random(min: number, max: number): number;
 
+// for url-loader load img
+declare module '*.png'
+declare module '*.jpg'
