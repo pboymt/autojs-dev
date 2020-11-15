@@ -1,5 +1,4 @@
 <script>
-/// <reference path="./node_modules/autojs-dev/types/autojs.d.ts" />
 
 <%=(module ? 'export' : '') %> class <%=name %> {
     constructor(){
@@ -14,4 +13,5 @@
 <% if(!module){ %>
     <%=name %>.main();
 <% } %>
+
 </script>
