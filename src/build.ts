@@ -1,9 +1,10 @@
-import * as webpack from "webpack";
+import webpack from "webpack";
 import { readdirSync, readFileSync } from "fs";
 import { join, resolve } from "path";
-import * as program from "commander";
+import { program } from "commander";
 import { getWorkspaceConfig } from "./util";
 import { AutoJSUI } from "./plugins/autojs-ui";
+import TerserPlugin from "terser-webpack-plugin";
 
 program
     .option('-w, --watch', '监控模式', false)
@@ -64,20 +65,27 @@ function checkUIScript(entries: { [name: string]: string }) {
 
 const entryList = getEntry();
 
-const plugins: any[] = [
+const plugins: webpack.WebpackPluginInstance[] = [
     // new webpack.optimize.UglifyJsPlugin({
     //     comments:false
     // })
     new AutoJSUI(checkUIScript(entryList))
 ];
+const optimization: webpack.Configuration['optimization'] = {
+
+}
 if (prodEnv) {
-    plugins.push(
-        new webpack.optimize.UglifyJsPlugin({
-            compress: {
-                drop_console: true
+    optimization.minimize = true;
+    optimization.minimizer = [
+        new TerserPlugin({
+            minify: TerserPlugin.uglifyJsMinify,
+            terserOptions: {
+                compress: {
+                    drop_console: true
+                }
             }
         })
-    )
+    ]
 }
 
 const complier = webpack({
@@ -122,18 +130,19 @@ const complier = webpack({
     },
     plugins: plugins
 });
+
 if (program.opts().watch) {
     complier.watch({}, (err, stat) => {
         if (err) {
             console.log(err);
         }
-        if (stat.hasErrors()) {
-            stat.toJson().errors.forEach((error: Error) => {
+        if (stat?.hasErrors()) {
+            stat.toJson().errors?.forEach((error) => {
                 console.log(error);
             });
         }
         console.log(`\nCompiled on ${new Date().toLocaleString()}`);
-        stat.toJson().assets.forEach((element: { name: string }) => {
+        stat?.toJson().assets?.forEach((element: { name: string }) => {
             console.log(element.name);
         });
     });
@@ -142,13 +151,13 @@ if (program.opts().watch) {
         if (err) {
             console.log(err);
         }
-        if (stat.hasErrors()) {
-            stat.toJson().errors.forEach((error: Error) => {
+        if (stat?.hasErrors()) {
+            stat.toJson().errors?.forEach((error) => {
                 console.log(error);
             });
         }
         console.log(`\nCompiled on ${new Date().toLocaleString()}`);
-        stat.toJson().assets.forEach((element: { name: string }) => {
+        stat?.toJson().assets?.forEach((element: { name: string }) => {
             console.log(element.name);
         });
     });

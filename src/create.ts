@@ -2,7 +2,7 @@ import { render } from "ejs";
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from "fs";
 import { join, dirname, resolve } from "path";
 import { mkdirsSync, getWorkspaceConfig, firstUpperCase } from "./util";
-import * as program from "commander";
+import { program } from "commander";
 
 program
     .option('-m, --module', '是否创建为模块', false)

@@ -1,7 +1,7 @@
 import { existsSync, mkdirSync, writeFileSync, readFileSync } from "fs";
 import { join, dirname, resolve } from "path";
 import { mkdirsSync, getWorkspaceConfig } from "./util";
-import * as program from "commander";
+import { program } from "commander";
 
 program
     .option('-m, --module', '是否创建模块', false)

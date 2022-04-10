@@ -1,6 +1,6 @@
 import { writeFileSync, existsSync, mkdirSync, readFileSync } from "fs";
 import { join, dirname } from "path";
-import * as program from "commander";
+import { program } from "commander";
 const packageInfo = require('../package.json');
 
 console.log(`${new Array(process.stdout.columns).fill('-').join('')}

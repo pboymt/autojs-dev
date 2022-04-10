@@ -1,5 +1,5 @@
-import * as program from 'commander';
-import * as Express from "express";
+import { program } from 'commander';
+import Express from "express";
 import { readFileSync } from "fs";
 import { join, resolve } from 'path';
 import { getWorkspaceConfig } from './util';
@@ -30,13 +30,18 @@ app.get('/img/:file', (req, res) => {
     res.sendFile(join(imgDir, `${req.params['file']}`));
 });
 
-app.listen(port || 3400, host || '0.0.0.0', () => {
-    console.log(`Listening on ${host || '0.0.0.0'}:${port || 3400}`);
-    const network = networkInterfaces();
-    console.log('可能监听的地址：')
-    Object.keys(network).forEach(key => {
-        network[key].forEach(val => {
-            (val.family === 'IPv4') && console.log(val.address);
-        });
-    });
+app.listen(port ?? 3400, host ?? '0.0.0.0', () => {
+    console.log(`Listening on ${host ?? '0.0.0.0'}:${port ?? 3400}`);
+    const networks = networkInterfaces();
+    console.log('在局域网内可能监听的地址：')
+    for (const key in networks) {
+        if (Object.prototype.hasOwnProperty.call(networks, key)) {
+            const network = networks[key];
+            for (const item of network ?? []) {
+                if (item.family === 'IPv4') {
+                    console.log(`${item.address}:${port ?? 3400}`);
+                }
+            }
+        }
+    }
 });

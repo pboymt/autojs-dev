@@ -1,5 +1,5 @@
 import { readFileSync, existsSync } from "fs";
-import * as program from "commander";
+import { program } from "commander";
 import { ScreenCap } from "./adb";
 import { getWorkspaceConfig } from "./util";
 

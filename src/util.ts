@@ -1,5 +1,6 @@
 import { existsSync, mkdirSync, readFileSync } from "fs";
 import { dirname } from "path";
+import webpack from "webpack";
 
 export function mkdirsSync(dir: string) {
     if (existsSync(dir)) {

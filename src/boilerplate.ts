@@ -1,7 +1,7 @@
 import { existsSync, statSync, mkdirSync, readFileSync, writeFileSync, readdirSync } from "fs";
 import { join } from "path";
 import { spawn, exec } from "child_process";
-import * as program from "commander";
+import { program } from "commander";
 
 program
     // .option('-d, --dir <dirname>', '项目父目录，默认为当前目录')
@@ -19,7 +19,12 @@ const defaultTSConfig = {
         "target": "ES5",
         "module": "commonjs",
         "lib": [
-            "es2015"
+            "es2015",
+            "es2016",
+            "es2017",
+            "es2018",
+            "es2019",
+            "es2020"
         ],
         "removeComments": false,
         "skipLibCheck": true,
@@ -52,7 +57,7 @@ const autojsConfig = {
 Boilerplate(program.args[0], Boolean(program.opts().module) || false);
 
 function Boilerplate(name: string, isModule: boolean) {
-    console.log(`Name: ${name}`);
+    console.log(`项目名称: ${name}`);
     const projectPath = join(process.cwd(), name || '');
     const autojsonPath = join(projectPath, 'autojs.json');
     const tsconfigPath = join(projectPath, 'tsconfig.json');
@@ -92,7 +97,7 @@ function Boilerplate(name: string, isModule: boolean) {
         version: "0.0.0",
         description: "A Auto.js Script Project.",
         devDependencies: {
-            "autojs-dev": JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')).version,
+            "autojs-dev": "latest" // JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')).version,
         },
         author: "",
         license: "GPL-3.0"
@@ -118,7 +123,7 @@ function Boilerplate(name: string, isModule: boolean) {
         console.log('创建目录失败！');
     }
     if (!program.opts().skip) {
-        installSpawn(projectPath, Boolean(program.opts().yarn) || false);
+        installSpawn(projectPath);
     }
 }
 
@@ -142,16 +147,13 @@ function installExec(projectPath: string) {
     });
 }
 
-function installSpawn(projectPath: string, yarn: boolean) {
-    const command = yarn ? 'yarn' : 'npm';
-    const args = yarn ? [] : ['install'];
+function installSpawn(projectPath: string) {
+    const command = 'npm';
+    const args = ['install'];
     console.log(`使用${command}进行后续安装`);
     const cp = spawn(/^win/.test(process.platform) ? `${command}.cmd` : command, args, {
         cwd: projectPath
     });
-    // const cp = spawn(/^win/.test(process.platform) ? 'npm.cmd' : 'npm', ['install'], {
-    //     cwd: projectPath
-    // });
     cp.stdout.on('data', chunk => {
         process.stdout.write(chunk);
     });
