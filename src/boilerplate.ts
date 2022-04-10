@@ -1,7 +1,8 @@
-import { existsSync, statSync, mkdirSync, readFileSync, writeFileSync, readdirSync } from "fs";
-import { join } from "path";
-import { spawn, exec } from "child_process";
+import { exec, spawn } from "child_process";
 import { program } from "commander";
+import { existsSync, mkdirSync, readdirSync, writeFileSync } from "fs";
+import { join } from "path";
+import { CompilerOptions, ModuleKind, ScriptTarget, TranspileOptions } from "typescript";
 
 program
     // .option('-d, --dir <dirname>', '项目父目录，默认为当前目录')
@@ -14,10 +15,10 @@ program
     // })
     .parse(process.argv);
 
-const defaultTSConfig = {
+const defaultTSConfig: TranspileOptions = {
     "compilerOptions": {
-        "target": "ES5",
-        "module": "commonjs",
+        "target": ScriptTarget.ES5,
+        "module": ModuleKind.CommonJS,
         "lib": [
             "es2015",
             "es2016",
@@ -97,7 +98,9 @@ function Boilerplate(name: string, isModule: boolean) {
         version: "0.0.0",
         description: "A Auto.js Script Project.",
         devDependencies: {
-            "autojs-dev": "latest" // JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')).version,
+            "autojs-dev": "latest", // JSON.parse(readFileSync(join(__dirname, '../package.json'), 'utf-8')).version,
+            "@autojs/types-pro8": "latest",
+            "@autojs/types-pro9": "latest",
         },
         author: "",
         license: "GPL-3.0"
