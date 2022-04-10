@@ -1,5 +1,4 @@
-import { Compiler } from "webpack";
-import { ConcatSource } from "webpack-sources";
+import { Compilation, Compiler, sources } from "webpack";
 
 export class AutoJSUI {
 
@@ -12,27 +11,20 @@ export class AutoJSUI {
     apply(compiler: Compiler) {
 
         compiler.hooks.compilation.tap('AutoJSUI', (compilation, normalModuleFactory) => {
-            compilation.hooks.optimizeChunkAssets.tap('AutoJSUI', (chunks) => {
-                for (const chunk of chunks) {
-                    if (chunk.canBeInitial()) {
-                        if (this.UIScriptList.includes(chunk.name)) {
-                            // console.log(chunk.name);
-                            chunk.files.forEach(file => {
-                                compilation.assets[file] = new ConcatSource(
-                                    '"ui";',
-                                    '\n',
-                                    compilation.assets[file]
-                                );
-                            });
-                        }
-                        // chunk.files.forEach(file => {
-                        // console.log(compilation.assets[file]);
-                        // compilation.assets[file] = new ConcatSource(
-                        //     '\/**Sweet Banner**\/',
-                        //     '\n',
-                        //     compilation.assets[file]
-                        // );
-                        // })
+            compilation.hooks.processAssets.tap({
+                name: 'AutoJSUI',
+                stage: Compilation.PROCESS_ASSETS_STAGE_ADDITIONS
+            }, (assets) => {
+                for (const asset in assets) {
+                    if (this.UIScriptList.includes(asset)) {
+                        // console.log(chunk.name);
+                        compilation.updateAsset(asset, source => {
+                            return new sources.ConcatSource(
+                                `"ui";`,
+                                '\n',
+                                source
+                            )
+                        });
                     }
                 }
             });
