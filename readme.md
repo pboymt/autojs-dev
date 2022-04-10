@@ -12,7 +12,7 @@ npm i -g autojs-dev
 
 或者安装到工程目录
 ```
-
+npm i -D autojs-dev
 ```
 
 支持的指令：
@@ -28,8 +28,15 @@ autojs build # 根据配置文件编译脚本
 autojs img # 启动找图素材加载服务
 ```
 
+## 0.8.0 过渡指南
+
+项目中自带的Auto.js TypeScript声明文件计划废弃，请使用生成项目中配置的`@autojs/types-pro8`或`@autojs/types-pro9`声明。
+
+生成文件中第一行引用的内容可以自行移除。
+
 ## 开发计划
 
+- [x] 更新依赖到Node.js 16时代
 - [x] 项目构建脚手架
   - [x] 项目配置文件
   - [x] 脚本自动生成命令
@@ -45,6 +52,6 @@ autojs img # 启动找图素材加载服务
 
 ## 本项目依赖模块
 
-[![Express Logo](https://i.cloudup.com/zfY6lL7eFa-3000x3000.png)](http://expressjs.com/)
+<a href="http://expressjs.com/"><img src="https://camo.githubusercontent.com/0566752248b4b31b2c4bdc583404e41066bd0b6726f310b73e1140deefcc31ac/68747470733a2f2f692e636c6f756475702e636f6d2f7a6659366c4c376546612d3330303078333030302e706e67" style="max-height: 100px;" alt="ExpressJS"></a>
 
-[![Webpack Logo](https://webpack.js.org/assets/icon-square-big.svg)](http://webpack.js.org/)
+<a href="http://webpack.js.org/"><img src="https://webpack.js.org/assets/icon-square-big.svg" style="max-height: 100px;" alt="Webpack"></a>

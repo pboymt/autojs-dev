@@ -13,6 +13,20 @@
                 "name": {
                     "description": "项目名称",
                     "type": "string"
+                },
+                "version": {
+                    "examples": [
+                        "pro8",
+                        "pro9",
+                        "legacy"
+                    ],
+                    "description": "项目版本",
+                    "type": "string",
+                    "enum": [
+                        "pro8",
+                        "pro9",
+                        "legacy"
+                    ]
                 }
             },
             "additionalProperties": false
