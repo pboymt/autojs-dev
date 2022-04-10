@@ -73,6 +73,22 @@
                     "type": "string",
                     "default": "./scripts"
                 },
+                "include": {
+                    "description": "包含的入口文件，此项启用时src选项失效。",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": ".+\\.ts$"
+                    }
+                },
+                "exclude": {
+                    "description": "排除的入口文件，此项在src或include启用时生效。",
+                    "type": "array",
+                    "items": {
+                        "type": "string",
+                        "pattern": ".+\\.ts$"
+                    }
+                },
                 "output": {
                     "description": "输出目录",
                     "type": "string",
