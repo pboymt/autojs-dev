@@ -16,9 +16,12 @@
   "scripts": {
     "test-types": "tsc test/test --skipLibCheck --lib ES2015 --target ES5 --removeComments",
     "start": "node lib/index.js",
-    "build": "tsc"
+    "build": "tsc",
+    "dev": "tsc --watch",
+    "install": "node install.js"
   },
   "devDependencies": {
+    "@types/appium-adb": "^8.16.0",
     "@types/ejs": "^3.1.0",
     "@types/express": "^4.17.13",
     "@types/node": "^17.0.23",
@@ -36,12 +39,15 @@
     "@autojs/types-pro8": "^8.8.0",
     "@autojs/types-pro9": "^9.0.0",
     "adbkit": "^2.0.17",
+    "appium-adb": "^9.2.2",
     "commander": "^9.1.0",
     "ejs": "^3.1.6",
     "express": "^4.17.3",
+    "node-stream-zip": "^1.15.0",
     "terser-webpack-plugin": "^5.3.1",
     "ts-loader": "^9.2.8",
     "typescript": "^4.6.3",
+    "undici": "^5.1.1",
     "url-loader": "^4.1.1",
     "webpack": "^5.72.0"
   }

@@ -7,3 +7,5 @@ node_modules
 tsconfig.json
 !template/tsconfig.json
 .vscode-upload.json
+
+/tools

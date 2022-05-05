@@ -6,3 +6,5 @@ test
 *.png
 *.log
 package-lock.json
+
+/tools
