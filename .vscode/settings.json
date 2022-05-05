@@ -3,6 +3,7 @@
         "npm",
         "ui",
         "cli",
-        "boilerplate"
+        "boilerplate",
+        "core"
     ]
 }
