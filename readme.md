@@ -1,5 +1,7 @@
 # Auto.js DevTools
 
+## Auto.js Pro 已经跑路了，依靠其他分支版本仍然编译可用。
+
 ## 环境配置
 
 本工具依赖于[Node.js](https://nodejs.org)，并且只有通过Node.js内置的npm指令才可安装。
